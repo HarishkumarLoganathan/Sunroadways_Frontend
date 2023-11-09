@@ -1,0 +1,86 @@
+<div class="col-lg-3">
+    <div style="position: relative;">
+      <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+      <input class="form-control" type="text" placeholder="Search vehicle ID/Trip ID" style="border: none; border-bottom: 2px solid rgb(233, 5, 5);padding-left: 30px;" [formControl]="filter">
+    </div>
+  </div>
+
+  <br>
+
+<div *ngFor="let triplist of triplist$|async  ">
+
+  <div class="card">
+    <div>
+    <h5 class="card-header">TRIP ID : <ngb-highlight  [result]="triplist.Trip_Id" [term]="filter.value"  ></ngb-highlight> </h5>
+  </div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-lg-4">
+      <p><b>Route Name : </b><ngb-highlight  [result]="triplist.Route_Name" [term]="filter.value"></ngb-highlight></p>
+      </div>
+      <div class="col-lg-4">
+      <p><b>Driver Name : </b><ngb-highlight  [result]="triplist.Driver_Name" [term]="filter.value"></ngb-highlight></p>
+    </div>
+    <div class="col-lg-4">
+      <b>Vehicle Number : </b><ngb-highlight  [result]="triplist.Vehicle_Number" [term]="filter.value" ></ngb-highlight>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-4">
+      <p><b>Route Id : </b> <ngb-highlight [result]="triplist.Route_Id" [term]="filter.value"></ngb-highlight></p>
+      </div>
+      <div class="col-lg-4">
+      <p><b>Driver ID : </b><ngb-highlight  [result]="triplist.Driver_Id" [term]="filter.value"></ngb-highlight></p>
+    </div>
+    <div class="col-lg-4">
+      <p><b>Vehicle Model : </b> <ngb-highlight [result]="triplist.Vehicle_Model" [term]="filter.value"></ngb-highlight></p>
+    </div>
+    </div>
+
+
+  
+
+
+
+    <div class="row">
+      <div class="col-lg-4">
+        <p><b>Last Scan Status : </b><ngb-highlight [result]="triplist.Last_Scan_Status" [term]="filter.value"></ngb-highlight></p>
+      </div>
+        <div class="col-lg-4">
+        <p><b>Driver Contact : </b><ngb-highlight [result]="triplist.Driver_Contact" [term]="filter.value"></ngb-highlight></p>
+      </div>
+      <div class="col-lg-4">
+        <p><b>Vehicle Start : </b><ngb-highlight [result]="triplist.Vehicle_Start" [term]="filter.value"></ngb-highlight> kms</p>
+      </div>
+  
+  
+      </div>
+      
+    </div>
+  </div>
+  <br>
+</div>
+
+
+<div class="d-flex justify-content-between p-2">
+	<ngb-pagination
+		[collectionSize]="collectionSize"
+		[(page)]="page"
+		[pageSize]="pageSize"
+		(pageChange)="onPageChange(page)"
+	>
+	</ngb-pagination>
+
+	<select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange(pageSize)">
+		<option [ngValue]="1">1 items per page</option>
+		<option [ngValue]="2">2 items per page</option>
+		<option [ngValue]="3">3 items per page</option>
+	</select>
+</div>
+
+
+
+

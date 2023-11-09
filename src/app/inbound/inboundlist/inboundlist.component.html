@@ -1,0 +1,74 @@
+
+<form>
+    <div class="mb-3 row">
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+        <div class="col-xs-3 col-sm-auto">
+            <input
+                id="table-complete-search"
+                type="text"
+                class="form-control"
+                name="searchTerm"
+                [(ngModel)]="service.searchTerm"
+            />
+        </div>
+        <span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>
+    </div>
+    
+    <table class="table table-striped">
+    
+    <thead style="background-color: rgb(209, 213, 216); border-radius:2 rem">
+    
+        <tr>
+           
+            <th scope="col" sortable="Vehicle" (sort)="onSort($event)">Vehicle</th>
+            <th scope="col" sortable="Vehicle_Type" (sort)="onSort($event)">VEHICLE TYPE</th>
+            <th scope="col" sortable="Origin_Facility" (sort)="onSort($event)">ORIGIN FACILITY</th>
+            <th scope="col" sortable="ETA" (sort)="onSort($event)">ETA</th>
+            <th scope="col" sortable="SLA" (sort)="onSort($event)">SLA</th>
+            <th scope="col" sortable="Consignment_Count" (sort)="onSort($event)">CONSIGNMENT COUNT</th>
+            <th scope="col" sortable="Last_Location" (sort)="onSort($event)">LAST LOCATION</th>
+        </tr>
+    
+    
+    
+        </thead>
+    
+        <tbody>
+    
+            <tr *ngFor="let vehicle of IncomingVehicleList$ | async">
+    
+                <td>    <a (click)="vechiledetails(vehicle.Trip_Id)"> <ngb-highlight [result]="vehicle.Vehicle" [term]="service.searchTerm"></ngb-highlight> <i class="fas fa-sign-in-alt"></i></a></td>
+                 <td>
+                    
+                    <ngb-highlight [result]="vehicle.Vehicle_Type" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td><ngb-highlight [result]="vehicle.Origin_Facility" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.ETA" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.SLA" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.Consignment_Count | number" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.Last_Location" [term]="service.searchTerm"></ngb-highlight></td>
+    
+            </tr>
+            
+    
+    
+        </tbody>
+    
+    </table>
+
+
+
+
+
+
+    <div class="d-flex justify-content-between p-2">
+		<ngb-pagination [collectionSize]="(service.total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+		</ngb-pagination>
+
+		<select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+			<option [ngValue]="2">2 items per page</option>
+			<option [ngValue]="4">4 items per page</option>
+			<option [ngValue]="6">6 items per page</option>
+		</select>
+	</div>
+    </form>

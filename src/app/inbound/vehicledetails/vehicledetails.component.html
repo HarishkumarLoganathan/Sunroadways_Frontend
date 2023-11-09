@@ -1,0 +1,111 @@
+
+<div class="row" style="border: 1px solid rgb(230, 225, 225);">
+<h4>Vehicle Detail</h4>
+
+
+<div class="row" >
+
+
+    <div class="col-lg-3">
+
+        <div class="row">
+        <p>Connection Type</p>
+    </div>
+
+    <div class="row px-3">
+
+        Surface
+    </div>
+    <div class="row py-3">
+
+    </div>
+    </div>
+    <div class="col-lg-3">
+
+        <p>Vehicle Number   </p>
+    </div>
+    <div class="col-lg-2">
+
+        <p>Vehicle Size   </p>
+    </div>
+    <div class="col-lg-2">
+
+        <p>Co-loader</p>
+    </div>
+    <div class="col-lg-2">
+
+        <p>ETA</p>
+    </div>
+</div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col lg-6">
+<form>
+    <div class="mb-3 row">
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+        <div class="col-xs-3 col-sm-auto">
+            <input
+                id="table-complete-search"
+                type="text"
+                class="form-control"
+                name="searchTerm"
+                [(ngModel)]="service.searchTerm"
+            />
+        </div>
+        <span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>
+    </div>
+    
+    <table class="table">
+    
+    <thead style="background-color: rgb(122, 149, 207); border-radius:2 rem">
+    
+        <tr>
+           
+            <th scope="col" sortable="Destination" (sort)="onSort($event)">LR NUMBER</th>
+            <th scope="col" sortable="Destination" (sort)="onSort($event)">DESTINATION</th>
+            <th scope="col" sortable="Total_Bags" (sort)="onSort($event)">TOTAL BAGS</th>
+            <th scope="col" sortable="Weight" (sort)="onSort($event)">WEIGHT</th>
+            <th scope="col" sortable="Door_Delivery" (sort)="onSort($event)">DOOR DELIVERY</th>
+
+        </tr>
+    
+    
+    
+        </thead>
+    
+        <tbody style="background-color: rgb(247, 246, 241); border-radius:2 rem">
+    
+            <tr *ngFor="let vehicle of IncomingVehicleList$ | async">
+    
+                <td>    <a (click)="vechiledetails(vehicle.Lr_Number)"> <ngb-highlight [result]="vehicle.Lr_Number.toString()" [term]="service.searchTerm"></ngb-highlight> <i class="fas fa-sign-in-alt"></i></a></td>
+             
+                <td><ngb-highlight [result]="vehicle.Destination" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.Total_Bags.toString()" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.Weight.toString()" [term]="service.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="vehicle.Door_Delivery" [term]="service.searchTerm"></ngb-highlight></td>
+               
+    
+            </tr>
+            
+    
+    
+        </tbody>
+    
+    </table>
+    <div class="d-flex justify-content-between p-2">
+		<ngb-pagination [collectionSize]="(service.total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+		</ngb-pagination>
+
+		<select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+			<option [ngValue]="2">2 items per page</option>
+			<option [ngValue]="4">4 items per page</option>
+			<option [ngValue]="6">6 items per page</option>
+		</select>
+	</div>
+    </form>
+</div>
+</div>

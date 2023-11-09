@@ -1,0 +1,117 @@
+
+<h4>CONSIGNMENT INFORMATION</h4>
+<br>
+
+<a href="#" class="inactive-link"><h5><b><u>LR NUMBER # {{Lr_Number}} </u></b></h5></a>
+
+
+<div class="row">
+
+<div class="col-lg-4">
+
+<p><b>BOOKING DATE: </b>  <span class="underline-text"> {{Consignment.Booking_Date}} </span></p>
+
+</div>
+<div class="col-lg-4">
+
+    <p><b>BOOKING BRANCH: </b>  <span class="underline-text"> {{Consignment.Booking_Branch}}</span></p>
+    
+    </div>
+
+    <div class="col-lg-4">
+
+        <p><b>BOOKING TIME: </b>  <span class="underline-text"> {{Consignment.Booking_Time}}</span></p>
+        
+        </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg-4">
+    
+    <p><b>CONSIGNOR NAME: </b>  <span class="underline-text"> {{Consignment.Consignor_Name}} </span></p>
+    
+    </div>
+    <div class="col-lg-4">
+    
+        <p><b>CONSINEE NAME: </b>  <span class="underline-text">{{Consignment.Consignee_Name}}</span><p>
+        
+        </div>
+    
+        <div class="col-lg-4">
+    
+            <p><b>DELIVERY ETA: </b>  <span class="underline-text">{{Consignment.Delivery_Eta}}</span></p>
+            
+            </div>
+    
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+        
+        <p><b>DELIVERY: </b>  <span class="underline-text"> {{Consignment.Delivery_Type}} </span></p>
+        
+        </div>
+        <div class="col-lg-4">
+        
+            <p><b>DELIVERY PLACE: </b>  <span class="underline-text"> {{Consignment.Delivery_Place}} </span></p>
+            
+            </div>
+        
+            <div class="col-lg-4">
+        
+                <p><b>DELIVERY PINCODE: </b>  <span class="underline-text"> {{Consignment.Delivery_Pincode}} </span></p>
+                
+                </div>
+                <div class="col-lg-4">
+        
+                    <p><b>DELIVERY CONTACT: </b>  <span class="underline-text"> {{Consignment.Delivery_Contact}} </span></p>
+                    
+                    </div>
+        
+        </div>
+        <br>
+        <br>
+
+        <h5><u>PAYMENT INFO </u></h5>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+        
+                <p><b>PAYMENT TYPE: </b>  <span class="underline-text"> {{Consignment.Payment_Type}} </span></p>
+                
+                </div>
+
+
+                <div class="col-lg-4">
+        
+                    <p><b>AMOUNT: </b>  <span class="underline-text"> {{Consignment.Amount}} </span></p>
+                    
+                    </div>
+
+        </div>
+<br>
+
+        <div class="row">
+
+            <div class="col-lg-6">
+<button class="btn btn-dark" (click)="directme_back(Lr_Number)"> BACK TO LIST</button>
+
+            </div>
+
+
+
+ <div class="col-lg-6">
+    <div class="d-flex justify-content-end">
+<button class="btn btn-danger" (click)="Initiate_Delivery(Lr_Number,Consignment.Booking_Date,Consignment.Booking_Branch,Consignment.Booking_Time,Consignment.Consignor_Name,Consignment.Consignee_Name,Consignment.Delivery_Eta,Consignment.Delivery_Type,Consignment.Delivery_Place,Consignment.Delivery_Pincode,Consignment.Delivery_Contact,Consignment.Payment_Type,Consignment.Amount)"> INITIATE DELIVERY </button>
+</div>
+                
+</div>
+
+
+
+        </div>

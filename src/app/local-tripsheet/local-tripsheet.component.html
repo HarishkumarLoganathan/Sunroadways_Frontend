@@ -1,0 +1,128 @@
+<h3>LOCAL TRIP SHEET DELIVERY</h3>
+<br>
+<br>
+
+
+
+
+<form #localtripsheet="ngForm">
+
+<div class="row">
+
+<div class="form-group col-lg-4">
+
+
+    <label for="name"><b>LR NUMBER</b></label>
+    <input class="form-control" type="number" name="lr_number" #lrnumber="ngModel"[(ngModel)]="lr_number"  (blur)="information_pull(lr_number)" required>
+    <div *ngIf="lrnumber.invalid && lrnumber.touched" style="color:red"> 
+    <div *ngIf="lrnumber.errors?.['required']" style="color:red"> Please Enter LR Number</div>
+    <div *ngIf="LR_error_flag" style="color:red">Incorrect LR Number</div>
+   </div>
+   </div>
+   
+   <div class="form-group col-lg-4">
+   <label for="name"><b>CONSIGNOR NAME</b></label>
+   <input class="form-control" type="text" name="consignor_name" #consignorname="ngModel"[(ngModel)]="consignor_name" required [readOnly]="ReadOnlyFlag">
+   <div *ngIf="consignorname.invalid && consignorname.touched" style="color:red"> 
+   <div *ngIf="consignorname.errors?.['required']" style="color:red"> Please Enter the Consignor Name</div>
+  </div>
+  </div>
+  <div class="form-group col-lg-4">
+    <label for="name"><b>CONSIGNOR NAME</b></label>
+    <input class="form-control" type="text" name="consignee_name" #consigneename="ngModel"[(ngModel)]="consignee_name" required [readOnly]="ReadOnlyFlag">
+    <div *ngIf="consignorname.invalid && consignorname.touched" style="color:red"> 
+    <div *ngIf="consignorname.errors?.['required']" style="color:red"> Please Enter the Consignee Name</div>
+   </div>
+
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="row">
+
+    <div class="form-group col-lg-4">
+    
+    
+        <label for="name"><b>DELIVERY CONTACT</b></label>
+        <input class="form-control" type="number" name="delivery_contact" #deliverycontact="ngModel"[(ngModel)]="delivery_contact" required [readOnly]="ReadOnlyFlag">
+        <div *ngIf="deliverycontact.invalid && deliverycontact.touched" style="color:red"> 
+        <div *ngIf="deliverycontact.errors?.['required']" style="color:red"> Delivery Contact ???...!</div>
+       </div>
+       </div>
+       <div class="form-group col-lg-4">
+       <label for="name"><b>PAYMENT TYPE</b></label>
+       <input class="form-control" type="text" name="payment_type" #paymenttype="ngModel"[(ngModel)]="payment_type" required [readOnly]="ReadOnlyFlag">
+       <div *ngIf="paymenttype.invalid && paymenttype.touched" style="color:red"> 
+       <div *ngIf="paymenttype.errors?.['required']" style="color:red"> Please Enter the Payment Type</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="name"><b>TOPAY AMOUNT</b></label>
+        <input class="form-control" type="number" name="topay_amount" #topayamount="ngModel"[(ngModel)]="topay_amount" required [readOnly]="ReadOnlyFlag">
+        <div *ngIf="topayamount.invalid && topayamount.touched" style="color:red"> 
+        <div *ngIf="topayamount.errors?.['required']" style="color:red"> Please Enter the TOPAY Amount</div>
+       </div>
+    
+    
+    
+    </div>
+    
+    </div>
+    
+
+
+
+
+
+    <div class="row">
+
+        <div class="form-group col-lg-3">
+        
+        
+            <label for="name"><b>VEHICLE NUMBER</b></label>
+            <input class="form-control" type="text" name="vehicle_number" #vehiclenumber="ngModel"[(ngModel)]="vehicle_number" required >
+            <div *ngIf="vehiclenumber.invalid && vehiclenumber.touched" style="color:red"> 
+            <div *ngIf="vehiclenumber.errors?.['required']" style="color:red"> Please Enter the Vehicle</div>
+           </div>
+           </div>
+           <div class="form-group col-lg-3">
+           <label for="name"><b>EWAY BILL </b></label>
+           <input class="form-control" type="number" name="ewaybill_number" #ewaybillnumber="ngModel"[(ngModel)]="ewaybill_number" required [readOnly]="ReadOnlyFlag">
+           <div *ngIf="ewaybillnumber.invalid && ewaybillnumber.touched" style="color:red"> 
+           <div *ngIf="ewaybillnumber.errors?.['required']" style="color:red"> Please Enter the EwayBill Number</div>
+          </div>
+          </div>
+          <div class="form-group col-lg-3">
+            <label for="name"><b>DRIVER ID</b></label>
+            <input class="form-control" type="number" name="driver_id" #driverid="ngModel"[(ngModel)]="driver_id" required >
+            <div *ngIf="driverid.invalid && driverid.touched" style="color:red"> 
+            <div *ngIf="driverid.errors?.['required']" style="color:red"> Please Enter the Driver Emp Id</div>
+           </div>
+           </div>
+           <div class="form-group col-lg-3">
+            <label for="name"><b>DRIVER NAME</b></label>
+            <input class="form-control" type="text" name="driver_name" #drivername="ngModel"[(ngModel)]="driver_name" required >
+            <div *ngIf="drivername.invalid && drivername.touched" style="color:red"> 
+            <div *ngIf="drivername.errors?.['required']" style="color:red"> Please Enter the Driver Name</div>
+           </div>
+        
+        
+        
+        </div>
+        
+        </div>
+
+ <br>
+ <br>
+ <button type="submit"  [disabled]="localtripsheet.invalid" class="btn btn-dark" (click)="Delivery_Request(localtripsheet)">Submit</button>
+        
+        
+    
+
+
+</form>

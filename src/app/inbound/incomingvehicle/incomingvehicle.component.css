@@ -1,0 +1,9 @@
+.custom-col {
+    width: calc((100% / 12) * 2.5);
+  }
+  
+  /* Add padding to the column to create space between columns */
+  .custom-col + .custom-col {
+    padding-left: 15px;
+  }
+

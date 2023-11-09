@@ -1,0 +1,476 @@
+<form #BranchBookingForm="ngForm" (ngSubmit)="Branch_Booking(BranchBookingForm)" >
+
+    
+    <h4>PART LOAD BOOKING :</h4>
+                         <div class="row">
+
+                          <div class="form-group col-lg-3">
+                             <label for="name"><b>Drop City</b></label>
+                            
+                             <select class="form-control" name="drop_location" #droplocation="ngModel" id=drop_location [(ngModel)]="drop_location" required>
+                              <ng-container *ngFor="let location of ploc">
+                               <ng-container *ngIf="location !== pickup_location">
+                               <option [value]="location">{{ location }}</option>
+                             </ng-container>
+                              </ng-container>
+                          </select>
+                          <div *ngIf="droplocation.invalid && droplocation.touched" style="color:red"> 
+                            <div *ngIf="droplocation.errors?.['required']" style="color:red"> Please Select the Drop Location</div>
+                           </div>
+                        
+    
+                       </div>
+                          
+    
+     
+                          
+                     <div class="form-group col-lg-3">
+                          <label for="name"><b>Nearest Delivery Branch</b></label>
+                        <select class="form-control" #deliverybranch="ngModel" name="nearest_branch" [(ngModel)]="nearest_branch" required>
+                          <ng-container *ngFor="let branch of Branches|keyvalue">
+                            <ng-container *ngIf="branch.key == drop_location">
+                              <ng-container *ngFor="let branch of branch.value">
+                           <option>{{ branch }}</option>
+                          </ng-container>
+                          </ng-container>
+                           </ng-container>
+                      </select>
+                     
+                    </div>
+
+
+                        
+                           </div>
+                           
+    
+    
+
+    
+    
+    
+                               
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                           <br>
+
+
+
+                           <h4>CONSIGNOR INFO :</h4>
+
+                           <div class="row">
+                            <div class="form-group col-lg-3">
+                              <label for="name"><b>Consignor Name</b></label>
+                              <input type="text" class="form-control" #consignorname="ngModel"name="consignor_name" [(ngModel)]="consignor_name" placeholder="Consignee Name" required>
+                                
+                                <div *ngIf="consignorname.invalid && consignorname.touched" style="color:red"> 
+                                  <div *ngIf="consignorname.errors?.['required']" style="color:red"> Please Enter the Consignee Name</div>
+                                 </div>
+                                </div>
+    
+                            <div class="form-group col-lg-3">
+                               <label for="name"><b>Consignor GST</b></label>
+                               <input type="text" class="form-control"  #consignorgst="ngModel" name="consignor_gst" [(ngModel)]="consignor_gst"  placeholder= "GSTIN"  required pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"  >
+                               <div *ngIf="consignorgst.invalid && consigneegst.touched" style="color:red"> 
+                                <div *ngIf="consignorgst.errors?.['required']" style="color:red"> Please Enter Consginee GST</div>
+                                <div *ngIf="consignorgst.errors?.['pattern']" style="color:red"> GST pattern Mismatch</div>
+                              </div>
+                             </div>
+      
+                             <div class="form-group col-lg-3">
+                               <label for="name"><b>Consginor Address</b></label>
+                               <input type="text" class="form-control"  #consignoraddress="ngModel" name="consignor_address" [(ngModel)]="consignor_address"  placeholder= "Detail address with comma seperated" required>
+                             
+                               <div *ngIf="consignoraddress.invalid && consignoraddress.touched" style="color:red"> 
+                                <div *ngIf="consignoraddress.errors?.['required']" style="color:red"> Please Enter the Consignee Address</div>
+                               </div>
+                             </div>
+
+
+
+    
+                                  <div class="form-group col-lg-3">
+                                    <label for="company_name"><b>Area</b></label>
+                                    <input type="text" class="form-control" name="consignor_area" #companyarea="ngModel" [(ngModel)]="consignor_area"  placeholder="AREA" required>
+                                    
+         
+                                    <div *ngIf="companyarea.invalid && companyarea.touched" style="color:red"> 
+                                    <div *ngIf="companyarea.errors?.['required']" style="color:red"> Please Enter the Area"</div>
+                                    </div>
+                                  </div>
+         
+                                  <div class="form-group col-lg-3">
+                                    <label for="company_name"><b>CITY</b></label>
+                                    <input type="text" class="form-control" name="consignor_city" #companycity="ngModel" [(ngModel)]="consignor_city"  placeholder="CITY" required>
+                                    
+         
+                                    <div *ngIf="companycity.invalid && companycity.touched" style="color:red"> 
+                                    <div *ngIf="companycity.errors?.['required']" style="color:red"> Please Enter the City"</div>
+                                    </div>
+                                  </div>
+         
+         
+                                  <div class="form-group col-lg-3">
+                                    <label for="name"><b> Consginor PINCODE</b></label>
+                                    <input type="text" class="form-control" #consignorpincode="ngModel"name="consignor_pincode"[(ngModel)]="consignor_pincode" placeholder="PIN CODE"  pattern="^[0-9]{06}$" required>
+                                     
+                                      <div *ngIf="consignorpincode.invalid && consigneepincode.touched" style="color:red"> 
+                                        <div *ngIf="consignorpincode.errors?.['required']" style="color:red"> Please Enter the Delivery Pincode</div>
+                                        <div *ngIf="consignorpincode.errors?.['pattern'] " style="color:red"> Should Only have Digits</div>
+                                       
+                                       </div>
+                                      </div>
+        
+         
+
+
+
+
+                             
+
+        
+                                <div class="form-group col-lg-3">
+                                   <label for="name"><b>Booking Contact Ph.</b></label>
+                                   <input type="text" class="form-control"  #consignorcontact="ngModel" name="consignor_contact" [(ngModel)]="consignor_contact"   required pattern="^[0-9]{10}$" placeholder= "Contact No"  required  >
+                                   <div *ngIf="consignorcontact.invalid && consigneecontact.touched" style="color:red"> 
+                                    <div *ngIf="consignorcontact.errors?.['required']" style="color:red"> Please Enter the Delivery Contact ph.</div>
+                                    <div *ngIf="consignorcontact.errors?.['pattern'] " style="color:red">Not a valid phone pattern</div>
+                                   </div>
+                                 </div>
+          
+                                 <div class="form-group col-lg-3">
+                                  <label for="email"><b>Pickup Type</b></label>
+                                  <select type="text" class="form-control"#pickuptype="ngModel" name="pickup_type" [(ngModel)]="pickup_type" placeholder="Delivery Type" required>
+                                  <option>DOOR </option>
+                                  <option>GODOWN</option>
+                                  </select> 
+                                  <div *ngIf="pickuptype.invalid && pickuptype.touched" style="color:red"> 
+                                    <div *ngIf="pickuptype.errors?.['required']" style="color:red"> Please Select the Delivery Type</div>
+                                   </div>
+                                   </div>
+        
+        
+                                 </div>
+      
+
+
+
+
+
+
+
+
+                           <br>
+                           <br>
+    
+                          <h4>CONSIGNEE INFO :</h4>
+                         
+   
+                      
+    <div class="row">
+                            <div class="form-group col-lg-3">
+                              <label for="name"><b>Consignee Name</b></label>
+                              <input type="text" class="form-control" #consigneename="ngModel"name="consignee_name" [(ngModel)]="consignee_name" placeholder="Consignee Name" required>
+                                
+                                <div *ngIf="consigneename.invalid && consigneename.touched" style="color:red"> 
+                                  <div *ngIf="consigneename.errors?.['required']" style="color:red"> Please Enter the Consignee Name</div>
+                                 </div>
+                                </div>
+    
+                            <div class="form-group col-lg-3">
+                               <label for="name"><b>Consignee GST</b></label>
+                               <input type="text" class="form-control"  #consigneegst="ngModel" name="consignee_gst" [(ngModel)]="consignee_gst"  placeholder= "GSTIN"  required pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"  >
+                               <div *ngIf="consigneegst.invalid && consigneegst.touched" style="color:red"> 
+                                <div *ngIf="consigneegst.errors?.['required']" style="color:red"> Please Enter Consginee GST</div>
+                                <div *ngIf="consigneegst.errors?.['pattern']" style="color:red"> GST pattern Mismatch</div>
+                              </div>
+                             </div>
+      
+                             <div class="form-group col-lg-3">
+                               <label for="name"><b>Consginee Address</b></label>
+                               <input type="text" class="form-control"  #consigneeaddress="ngModel" name="consignee_address" [(ngModel)]="consignee_address"  placeholder= "Detail address with comma seperated" required>
+                             
+                               <div *ngIf="consigneeaddress.invalid && consigneeaddress.touched" style="color:red"> 
+                                <div *ngIf="consigneeaddress.errors?.['required']" style="color:red"> Please Enter the Consignee Address</div>
+                               </div>
+                             </div>
+
+
+                             <div class="form-group col-lg-3">
+                              <label for="company_name"><b>Area</b></label>
+                              <input type="text" class="form-control" name="consignee_area" #consigneearea="ngModel" [(ngModel)]="consignee_area"  placeholder="AREA" required>
+                              
+   
+                              <div *ngIf="consigneearea.invalid && consigneearea.touched" style="color:red"> 
+                              <div *ngIf="consigneearea.errors?.['required']" style="color:red"> Please Enter the Area"</div>
+                              </div>
+                            </div>
+   
+                            <div class="form-group col-lg-3">
+                              <label for="company_name"><b>CITY</b></label>
+                              <input type="text" class="form-control" name="consignee_city" #consigneecity="ngModel" [(ngModel)]="consignee_city"  placeholder="CITY" required>
+                              
+   
+                              <div *ngIf="consigneecity.invalid && consigneecity.touched" style="color:red"> 
+                              <div *ngIf="consigneecity.errors?.['required']" style="color:red"> Please Enter the City"</div>
+                              </div>
+                            </div>
+
+                             <div class="form-group col-lg-3">
+                                <label for="name"><b> Delivery PINCODE</b></label>
+                                <input type="text" class="form-control" #consigneepincode="ngModel"name="consignee_pincode"[(ngModel)]="consignee_pincode" placeholder="PIN CODE"  pattern="^[0-9]{06}$" required>
+                                 
+                                  <div *ngIf="consigneepincode.invalid && consigneepincode.touched" style="color:red"> 
+                                    <div *ngIf="consigneepincode.errors?.['required']" style="color:red"> Please Enter the Delivery Pincode</div>
+                                    <div *ngIf="consigneepincode.errors?.['pattern'] " style="color:red"> Should Only have Digits</div>
+                                   
+                                   </div>
+                                  </div>
+
+    
+                             
+
+      
+                              <div class="form-group col-lg-3">
+                                 <label for="name"><b>Delivery Contact Ph.</b></label>
+                                 <input type="text" class="form-control"  #consigneecontact="ngModel" name="consignee_contact" [(ngModel)]="consignee_contact"   required pattern="^[0-9]{10}$" placeholder= "Contact No"  required  >
+                                 <div *ngIf="consigneecontact.invalid && consigneecontact.touched" style="color:red"> 
+                                  <div *ngIf="consigneecontact.errors?.['required']" style="color:red"> Please Enter the Delivery Contact ph.</div>
+                                  <div *ngIf="consigneecontact.errors?.['pattern'] " style="color:red">Not a valid phone pattern</div>
+                                 </div>
+                               </div>
+        
+                               <div class="form-group col-lg-3">
+                                <label for="email"><b>Delivery Type</b></label>
+                                <select type="text" class="form-control"#deliverytype="ngModel" name="delivery_type" [(ngModel)]="delivery_type" placeholder="Delivery Type" required>
+                                <option>DOOR </option>
+                                <option>GODOWN</option>
+                                </select> 
+                                <div *ngIf="deliverytype.invalid && deliverytype.touched" style="color:red"> 
+                                  <div *ngIf="deliverytype.errors?.['required']" style="color:red"> Please Select the Delivery Type</div>
+                                 </div>
+                                 </div>
+      
+      
+                               </div>
+    
+                              
+    
+    
+                          
+    
+    
+                             
+    
+    <br>
+    <br>
+    <h4>CONSIGNMENT INFO</h4>
+    <div class="row">
+
+      <div class="form-group col-lg-3">
+        <label for="email"><b>Article Count</b></label>
+        <input type="number" class="form-control" #article="ngModel" name="article_count" [(ngModel)]="article_count"  placeholder="No. of Articles" required>
+        <div *ngIf="article.invalid && article.touched" style="color:red"> 
+          <div *ngIf="article.errors?.['required']" style="color:red"> Please Enter the No of Articles</div>
+         </div>
+      </div>
+
+      <div class="form-group col-lg-3">
+        <label for="name"><b>Weight of the Consignment</b></label>
+        <input type="number" class="form-control"   #weight= "ngModel" name="consignment_weight" [(ngModel)]="consignment_weight"  placeholder= "Consignment weight in kgs" required  >
+        <div *ngIf="weight.invalid && weight.touched" style="color:red"> 
+         <div *ngIf="weight.errors?.['required']" style="color:red"> Please Enter the weight of the consignment</div>
+        </div>
+      </div>
+
+      <div class="form-group col-lg-3">
+        <label for="name"><b>Description</b></label>
+        <input type="test" class="form-control"   #description= "ngModel" name="consignment_description" [(ngModel)]="consignment_description"  placeholder= "Description of the Consignment" required  >
+        <div *ngIf="weight.invalid && weight.touched" style="color:red"> 
+         <div *ngIf="weight.errors?.['required']" style="color:red"> Please Enter the Description</div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <br>
+    <br>
+    <h4>PAYMENT INFO</h4>
+    
+    <div class="row">
+    
+      <div class="form-group col-lg-3">
+        <label for="email"><b>Payment Option</b></label>
+        <select type="text" class="form-control"#paymenttype="ngModel" name="payment_type" [(ngModel)]="payment_type" placeholder="Delivery Type" required (blur)="payment_flag(payment_type)">
+        <option>PAID</option>
+        <option>TO PAY</option>
+        <option>MONTHLY BILLING</option>
+        </select> 
+        <div *ngIf="paymenttype.invalid && paymenttype.touched" style="color:red"> 
+          <div *ngIf="paymenttype.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+         </div>
+         </div>
+    
+    <div class="form-group col-lg-3">
+    <label for="email"><b>Choose Payee</b></label>
+    <select type="text" class="form-control"#paymentby="ngModel" name="payment_by" [(ngModel)]="payment_by" placeholder="Delivery Type" required (ngModelChange)="fetch_billinginfo(payment_by)">
+    <option>CONSIGNOR</option>
+    <option>CONSIGNEE</option>
+    </select> 
+    <div *ngIf="paymentby.invalid && paymentby.touched" style="color:red"> 
+      <div *ngIf="paymentby.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+     </div>
+     </div>
+    
+    
+    </div>
+    
+    <br>
+    <br>
+
+
+
+ <div *ngIf="monthly_flag!=='m'">
+
+    <h4>BILLING INFO</h4>
+    
+    <div class="row">
+    
+      <div class="form-group col-lg-3" >
+        <label for="email"><b>Charge Type</b></label>
+        <select type="text" class="form-control"#chargeby="ngModel" name="charge_by" [(ngModel)]="charge_by" placeholder="CHARGE" required (ngModelChange)="Charge_By()">
+        <option>WEIGHT</option>
+        <option>ARTICLE</option>
+        <option>CUSTOM</option>
+        </select> 
+        <div *ngIf="chargeby.invalid && chargeby.touched" style="color:red"> 
+          <div *ngIf="chargeby.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+         </div>
+         </div>
+    
+    <div class="form-group col-lg-3" *ngIf=weight_flag>
+    <label for="email"><b>Charge per kg</b></label>
+    <input type="number" class="form-control"#chargedweight="ngModel" name="charged_weight" [(ngModel)]="charged_weight" placeholder="CHARGE" required (blur)="weight_freight(charged_weight)">
+    
+    <div *ngIf="chargedweight.invalid && chargedweight.touched" style="color:red"> 
+      <div *ngIf="chargedweight.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+     </div>
+     </div>
+
+
+     <div class="form-group col-lg-3" *ngIf=article_flag>
+        <label for="email"><b>Charge per article</b></label>
+        <input type="number" class="form-control"#chargeperarticle="ngModel" name="charge_per_article" [(ngModel)]="charge_per_article" placeholder="Delivery Type" required (blur)="article_freight(charge_per_article)">
+        
+        <div *ngIf="chargeperarticle.invalid && chargeperarticle.touched" style="color:red"> 
+          <div *ngIf="chargeperarticle.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+         </div>
+         </div>
+        
+         <div class="form-group col-lg-3" *ngIf=!custom_flag>
+            <label for="email"><b>Freight Amount</b></label>
+            <input type="number" class="form-control"#freightamount="ngModel" name="freight_amount" [(ngModel)]="freight_amount" placeholder="FREIGHT" required >
+            
+            <div *ngIf="freightamount.invalid && freightamount.touched" style="color:red"> 
+              <div *ngIf="freightamount.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+             </div>
+             </div>
+
+             <div class="form-group col-lg-3" *ngIf=custom_flag>
+                <label for="email"><b>Freight Amount</b></label>
+                <input type="number" class="form-control"#freightamount="ngModel" name="freight_amount" [(ngModel)]="freight_amount" placeholder="FREIGHT" required>
+                <div *ngIf="freightamount.invalid && freightamount.touched" style="color:red"> 
+                  <div *ngIf="freightamount.errors?.['required']" style="color:red"> Please Select the PAYEE</div>
+                 </div>
+                 </div>
+
+
+                 <div class="form-group col-lg-3">
+                  <label for="email"><b>Hamali Charge</b></label>
+                  <input type="number" class="form-control"#hamalicharge="ngModel" name="hamali_charge" [(ngModel)]="hamali_charge" placeholder="Hamali" required>
+                  <div *ngIf="hamalicharge.invalid && hamalicharge.touched" style="color:red"> 
+                    <div *ngIf="hamalicharge.errors?.['required']" style="color:red"> Please Enter the Hamli Charge</div>
+                   </div>
+                   </div>
+
+
+                   <div class="form-group col-lg-3">
+                    <label for="email"><b>Delivery Charge</b></label>
+                    <input type="hidden" name="delivery_charge" [ngModel]="delivery_type === 'GODOWN' ? 0 : delivery_charge" />  
+                    <input type="number" class="form-control"#deliverycharge="ngModel" name="delivery_charge" [(ngModel)]="delivery_charge" placeholder="Door Charge" required     [readonly]="delivery_type === 'GODOWN'" 
+                    [value]="delivery_type === 'GODOWN' ? 0 : delivery_charge" >
+                    <div *ngIf="deliverycharge.invalid && deliverycharge.touched" style="color:red"> 
+                      <div *ngIf="deliverycharge.errors?.['required']" style="color:red"> Please Enter the delivery Charge</div>
+                     </div>
+                     </div>
+
+
+                     <div class="form-group col-lg-3">
+                      <label for="email"><b>Pickup Charge</b></label>
+                      <input type="hidden" name="pickup_charge" [ngModel]="pickup_type === 'GODOWN' ? 0 : pickup_charge" />  
+                      <input type="number" class="form-control"#pickupcharge="ngModel" name="pickup_charge" [(ngModel)]="pickup_charge" placeholder="Pickup Charge" required     [readonly]="pickup_type === 'GODOWN'" 
+                      [value]="pickup_type === 'GODOWN' ? 0 : pickup_charge" >
+                      <div *ngIf="pickupcharge.invalid && pickupcharge.touched" style="color:red"> 
+                        <div *ngIf="pickupcharge.errors?.['required']" style="color:red"> Please Enter the Pickup Charge</div>
+                       </div>
+                       </div>
+    
+    
+    </div>
+  </div>
+    
+    <br>
+    <br>
+
+
+
+
+
+
+
+
+    
+    <h4>DOCUMENT INFO :</h4>
+    
+    <div class="row">
+    
+      <div class="form-group col-lg-5">
+        <label for="email"><b>Invoice Number</b></label>
+        <input type="text" class="form-control" #invoicenumber="ngModel" name="invoice_number" [(ngModel)]="invoice_number" placeholder="Invoice Number" required>
+       
+        <div *ngIf="invoicenumber.invalid && invoicenumber.touched" style="color:red"> 
+          <div *ngIf="invoicenumber.errors?.['required']" style="color:red"> Invoice Number Comma Seperated</div>
+         </div>
+         </div>
+    
+         <div class="form-group col-lg-5">
+          <label for="name"><b>Eway Bill Number</b></label>
+          <input type="text" class="form-control"  #ewaybillnumber="ngModel" name="ewaybill_number" [(ngModel)]="ewaybill_number"   required pattern="^[0-9]{12}$" placeholder= "Ewaybill Number"  required  >
+          <div *ngIf="ewaybillnumber.invalid && ewaybillnumber.touched" style="color:red"> 
+           <div *ngIf="ewaybillnumber.errors?.['required']" style="color:red"> Please Enter the Eway bill Number</div>
+           <div *ngIf="ewaybillnumber.errors?.['pattern'] " style="color:red">Not a valid Eway bill number</div>
+          </div>
+        </div>
+    
+    
+    </div>
+    
+    
+  
+    
+    
+    
+    <br>
+    <br>
+    
+    
+    
+                          <button type="submit"  [disabled]="BranchBookingForm.invalid" class="btn btn-dark">Submit</button>
+                        </form>

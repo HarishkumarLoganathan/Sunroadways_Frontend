@@ -1,0 +1,292 @@
+
+<div class="p-5">
+
+    <div class="bookingform">
+      
+      <form [formGroup]="studentForm">
+      
+          <div> 
+      
+              <h4>BLIND MANFIEST BOOKING</h4>
+
+
+              
+
+              
+            
+      
+              <h4 style="color:rgb(178, 153, 201); font-size:20px"> DELIVERY INFO</h4>
+              
+      
+      <div formArrayName="studentList">
+                  <div *ngFor="let student of currentPageForms; let i =index; ">
+                      <div [formGroupName]="(currentPage - 1) ">
+                      <div class="row">
+      
+
+
+                        <div class="col-lg-3">
+                            <label for="client_id"><b>Client Id</b></label>
+                            <input type="text" class="form-control" name="client_id" formControlName="client_id" id="client_id"  [readonly]="true" >
+                            
+                        </div>
+                          <div class="col-lg-3">
+                            <label for="order_id"><b>Order Id</b></label>
+                            <input type="text" class="form-control" name="order_id" formControlName="order_id" id="order_id"  [readonly]="true" >
+                            
+                          </div>
+      
+ 
+                            
+      
+                            <div class="col-lg-3">
+      
+                              <label for="drop_location"><b>Drop City</b></label>
+                              <select class="form-control" name="drop_location" formControlName="drop_location" id="drop_location" placeholder="Drop City" >
+                                  <ng-container *ngFor="let location of loc">
+                                      <ng-container *ngIf="location !==  getControlValue(currentPage-1 , 'pickup_location')">
+                                      <option [value]="location">{{ location }}</option>
+                                    </ng-container>
+                                     </ng-container>
+                            </select>
+                            <div *ngIf="getControl(currentPage-1 , 'drop_location')?.touched && getControl(currentPage-1 , 'drop_location')?.hasError('required')" class="error-message" style="color:red">Please Select the drop location .</div>
+                           
+                            </div>
+      
+      
+                            <div class="col-lg-3">
+      
+                              <label for="pickup_branch"><b>Delivery Branch</b></label>
+                              <select class="form-control" name="delivery_branch" formControlName="delivery_branch" id="delivery_branch" aria-placeholder="Nearest Delivery Branch" >
+                                  <ng-container *ngFor="let branch of loc_branch|keyvalue">
+                                      <ng-container *ngIf="branch.key == getControlValue(currentPage-1 , 'drop_location')">
+                                        <ng-container *ngFor="let branch of branch.value">
+                                     <option>{{ branch }}</option>
+                                    
+                                    </ng-container>
+                                    </ng-container>
+                                     </ng-container>
+                                    
+                            </select>
+                            <div *ngIf="getControl(currentPage-1 , 'delivery_branch')?.touched && getControl(currentPage-1 , 'delivery_branch')?.hasError('required')" class="error-message" style="color:red">Please Select the delivery branch.</div>
+                           </div>
+      
+      </div>
+      <br>
+      
+      
+      <div class="row">
+      
+                           <h4 style="color:rgb(178, 153, 201);font-size:20px" > CONSIGNMENT INFO</h4>
+      
+                           
+      
+      
+                           <div class="col-lg-3">
+                            <label for="article_count"><b>Article Count</b></label>
+                            <input type="number" class="form-control" name="article_count" formControlName="article_count" id="article_count" aria-placeholder="Article Count" min="0">
+                            <div *ngIf="getControl(currentPage-1 , 'article_count')?.touched && getControl(currentPage-1 , 'article_count')?.hasError('required')" class="error-message" style="color:red">Please Enter the article count.</div>
+                            <div *ngIf="getControl(currentPage-1 , 'article_count')?.hasError('pattern')" class="error-message" style="color:red">Please Enter the positive Value.</div>
+                           
+                          </div>
+      
+                 
+                          <div class="col-lg-3">
+                            <label for="consignment_weight"><b>Weight of the Consignment</b></label>
+                            <input type="number" class="form-control" name="consignment_weight" formControlName="consignment_weight" id="consignment_weight" aria-placeholder="Consignment Weight" min="0">
+                            <div *ngIf="getControl(currentPage-1 , 'consignment_weight')?.touched && getControl(currentPage-1 , 'consignment_weight')?.hasError('required')" class="error-message" style="color:red">Please Enter the Consignment weight.</div>
+                            <div *ngIf="getControl(currentPage-1 , 'consignment_weight')?.hasError('pattern')" class="error-message" style="color:red">Please Enter the positive Value.</div>
+                           
+                          </div>
+      
+                          <div class="col-lg-3">
+                            <label for="email"><b>Delivery Type</b></label>
+                            <select class="form-control" name="delivery_type" formControlName="delivery_type" id="delivery_type" placeholder="Delivery Type">
+                            <option>DOOR </option>
+                            <option>GODOWN</option>
+                            </select> 
+                            <div *ngIf="getControl(currentPage-1 , 'delivery_type')?.touched && getControl(currentPage-1 , 'delivery_type')?.hasError('required')" class="error-message" style="color:red">Please Select the Delivery Type.</div>
+                             </div>
+      
+                            </div>
+      
+      
+                  
+                      
+                  <br>
+                  <h4 style="color:rgb(178, 153, 201);font-size:20px" > CONSIGNEE INFO</h4>
+      
+                  <div class="row">
+      
+      
+      
+                    <div class="form-group col-lg-4">
+                      <label for="name"><b>Consignee Name</b></label>
+                      <input type="text" class="form-control" name="consignee_name" formControlName="consignee_name" id="consignee_name" placeholder="Name of the Consignee">
+                        
+                      <div *ngIf="getControl(currentPage-1 , 'consignee_name')?.touched && getControl(currentPage-1 , 'consignee_name')?.hasError('required')" class="error-message" style="color:red">Please Enter the Consingee Name.</div>
+                        </div>
+      
+                        <div class="form-group col-lg-4">
+                          <label for="name"><b>Consignee GST</b></label>
+                          <input type="text" class="form-control" name="consignee_GST" formControlName="consignee_GST" id="consignee_GST" placeholder="Consignee GST">
+                            
+                          <div *ngIf="getControl(currentPage-1 , 'consignee_GST')?.touched && getControl(currentPage-1 , 'consignee_GST')?.hasError('required')" class="error-message" style="color:red">Please Enter the GST.</div>
+                          <div *ngIf="getControl(currentPage-1 , 'consignee_GST')?.hasError('pattern')" class="error-message" style="color:red">Please Enter Valid GST.</div>
+                            </div>
+      
+      
+                            <div class="form-group col-lg-4">
+                              <label for="name"><b>Consignee Email</b></label>
+                              <input type="text" class="form-control" name="consignee_email" formControlName="consignee_email" id="consignee_email" placeholder="Consignee Email">
+                                
+                              <div *ngIf="getControl(currentPage-1 , 'consignee_email')?.touched && getControl(currentPage-1 , 'consignee_email')?.hasError('required')" class="error-message" style="color:red">Please Enter the Consignee Email.</div>
+                              <div *ngIf="getControl(currentPage-1 , 'consignee_email')?.hasError('pattern')" class="error-message" style="color:red">Incorrect email pattern.</div>
+                                </div>
+      
+      
+                  </div>
+      
+      
+                  <br>
+                  <h4 style="color:rgb(178, 153, 201);font-size:20px" > DELIVERY INFO</h4>
+      
+                  <div class="row">
+      
+                    <div class="form-group col-lg-4">
+                      <label for="name"><b>Address</b></label>
+                      <input type="text" class="form-control" name="delivery_address" formControlName="delivery_address" id="delivery_address" placeholder="Delivery Address">
+                        
+                      <div *ngIf="getControl(currentPage-1 , 'delivery_address')?.touched && getControl(currentPage-1 , 'delivery_address')?.hasError('required')" class="error-message" style="color:red">Please Enter the Delivery Address.</div>
+                        </div>
+      
+      
+                        <div class="form-group col-lg-4">
+                          <label for="name"><b>Area / Locality</b></label>
+                          <input type="text" class="form-control" name="delivery_area" formControlName="delivery_area" id="delivery_area" placeholder="Delivery PINCODE">
+                            
+                          <div *ngIf="getControl(currentPage-1 , 'delivery_area')?.touched && getControl(currentPage-1 , 'delivery_area')?.hasError('required')" class="error-message" style="color:red">Please Enter the Delivery PINCODE.</div>
+                            </div>
+      
+                            <div class="form-group col-lg-4">
+                              <label for="name"><b>PINCODE</b></label>
+                              <input type="text" class="form-control" name="delivery_pincode" formControlName="delivery_pincode" id="delivery_pincode" placeholder="Delivery Pincode">
+                                
+                              <div *ngIf="getControl(currentPage-1 , 'delivery_pincode')?.touched && getControl(currentPage-1 , 'delivery_pincode')?.hasError('required')" class="error-message" style="color:red">Please Enter the PINCODE.</div>
+                              <div *ngIf="getControl(currentPage-1 , 'delivery_pincode')?.hasError('pattern')" class="error-message" style="color:red">Incorrect PINCODE.</div>
+                                </div>
+      
+                                <div class="form-group col-lg-4">
+                                  <label for="name"><b>Delivery Contact</b></label>
+                                  <input type="tel" class="form-control" name="delivery_contact" formControlName="delivery_contact" id="delivery_contact" placeholder="Delivery Contact">
+                                    
+                                  <div *ngIf="getControl(currentPage-1 , 'delivery_contact')?.touched && getControl(currentPage-1 , 'delivery_contact')?.hasError('required')" class="error-message" style="color:red">Please Enter the Contact number.</div>
+                                  <div *ngIf="getControl(currentPage-1 , 'delivery_contact')?.hasError('pattern')" class="error-message" style="color:red">Invalid mobile pattern.</div>
+                                    </div>
+                                  </div>
+      
+                                    <br>
+                                    <h4 style="color:rgb(178, 153, 201);font-size:20px"> PAYMENT INFO</h4>
+                                    <div class="row">
+                                    <div class="form-group col-lg-3">
+                                        <label for="payment_type"><b>Payment Option</b></label>
+                                        <select type="text" class="form-control" name="payment_type" formControlName="payment_type" id="payment_type"  required (blur)="payment_flag(getControlValue(currentPage-1 , 'payment_type'),i)">
+                                        <option>PAID</option>
+                                        <option>TO PAY</option>
+                                        <option>MONTHLY BILLING</option>
+                                        </select> 
+
+                                         </div>
+                                    
+                                    <div class="form-group col-lg-3">
+                                    <label for="email"><b>Choose Payee</b></label>
+                                    <select type="text" class="form-control"  name="payment_by" name="payment_by" formControlName="payment_by"  required (ngModelChange)="fetch_billinginfo(getControlValue(currentPage-1 , 'payment_by'))">
+                                    <option>CONSIGNOR</option>
+                                    <option>CONSIGNEE</option>
+                                    </select> 
+                                  
+                                     </div>
+
+                                     <div *ngIf="getControlValue(currentPage-1 , 'payment_type')=='M'" class="form-group col-lg-3">
+                                        <label for="charge_by"><b>Charge_by</b></label>
+                                        <select type="text" class="form-control"  name="charge_by" name="charge_by" formControlName="charge_by"  required >
+                                        <option>Weight</option>
+                                        <option>Article</option>
+                                        </select> 
+                                      
+                                         </div>
+
+                                    
+                                    </div>
+
+                                    <br>
+                                    <h4 style="color:rgb(178, 153, 201);font-size:20px"> DOCUMENT INFO</h4>
+      
+                  <div [formGroup]="subjectsFormGroup((currentPage - 1))">
+    
+                    <div formArrayName="studentSubjectArray">
+    
+    
+                      <div *ngFor="let studentSub of subjectsArray((currentPage - 1)).controls; let j = index;">
+      
+                        <div [formGroupName]="j">
+                          <div class="row">
+                            <div class="form-group col-lg-4">
+                          <input type="text" class="form-control" name="ewaybill_number" formControlName="ewaybill_number" id="ewaybill_number" placeholder="Eway Bill Number">
+                        </div>
+                          <div class="col-lg-4">
+                          <input type="text" class="form-control" name="invoice_number" formControlName="invoice_number" id="invoice_number" placeholder="Invoice Number">
+                        </div>
+                          <div class="col-lg-4">
+                          <button type="button" *ngIf="subjectsArray((currentPage - 1)).length > 1 && j>0" (click)="removeNewSubject(i, j)" class="btn btn-sm btn-danger ms-1">Remove Invoice</button>
+                        </div>
+                        </div>
+                        </div>
+                      
+                      </div>
+    
+    
+                  </div>
+                  </div>
+      
+                  <div *ngIf="studentForm.invalid">Form is invalid</div>
+                  <button type="button" (click)="addNewSubject((currentPage - 1))" class="btn btn-sm btn-warning mt-2">Add Document</button>
+    
+                  <br>
+                  <br>
+    
+ 
+                  
+                      
+                  
+                 
+      
+      
+      
+                
+      
+              
+              </div>
+              </div>
+              </div>
+      </div>
+          
+      
+      </form> 
+      
+      
+    <br>
+    <br>
+      
+       
+      
+      
+       
+        <ngb-pagination [collectionSize]="studentListArray.controls.length" [(page)]="currentPage" [pageSize]="pageSize">
+      </ngb-pagination>
+      
+      
+      <button class="btn btn-dark" type="submit" (click)="getFormData(studentForm)" [disabled]="studentForm.invalid">Submit</button>
+      
+      </div>
+    </div>

@@ -1,0 +1,12 @@
+a.inactive-link {
+    color: rgb(247, 10, 10); /* Set the text color to a muted or gray shade */
+    cursor: not-allowed; /* Set the cursor style to indicate it is not clickable */
+    pointer-events: none; /* Disable pointer events to prevent click interactions */
+    text-decoration: none; /* Remove any underline or decoration */
+    
+  }
+
+  .underline-text {
+    
+    line-height: 2; /* Adjust the line spacing by modifying the value */
+  }

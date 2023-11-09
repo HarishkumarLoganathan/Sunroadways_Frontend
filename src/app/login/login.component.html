@@ -1,0 +1,27 @@
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <div class="form-group">
+        <label for="email"><b>Email</b></label>
+        <input type="email" class="form-control" #name="ngModel" name="branch_email" [(ngModel)]="branch_email"  placeholder="Registered email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="8">
+        <div *ngIf="name.invalid && name.touched" style="color:red"> 
+         <div *ngIf="name.errors?.['pattern']" style="color:red"> pattern_mismatch
+         </div>
+         <div *ngIf="name.errors?.['required']" style="color:red"> Please Enter the email</div>
+         </div>
+            
+        
+      
+
+      </div>
+      <div class="form-group">
+         <label for="name"><b>Password</b></label>
+         <input type="text" class="form-control"  #password= "ngModel" name="branch_password" [(ngModel)]="branch_password"  placeholder= "Password with min 8 characters with atleast 1 uppercase and 1 lowercase and 1 digit and a special character" required minlength="8" maxlength="15" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$" >
+         <div *ngIf="password.invalid && password.touched" style="color:red"> 
+            <div *ngIf="password.errors?.['required']" style="color:red"> Please Enter the Password</div>
+         <div *ngIf="password.errors?.['pattern'] " style="color:red"> invalid password pattern</div>
+         <div *ngIf="password.errors?.['minlength'] " style="color:red">Min length should be 8</div>
+      </div>
+      </div>
+  
+    <button class="btn btn-dark" type="submit" [disabled]="!loginForm.valid"  >Login</button>
+  </form>
+  

@@ -1,0 +1,117 @@
+
+
+
+
+<h5>CREATE TRIP SHEET</h5>
+<br>
+
+<div class="row">
+
+
+
+<div class="col-lg-3">
+
+
+    <input class="form-control" name="pickup_location" #droplocation="ngModel"[(ngModel)]="drop_location" required placeholder="Select the Drop City" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);   outline: none;">
+    <div *ngIf="droplocation.invalid && droplocation.touched" style="color:red"> 
+    <div *ngIf="droplocation.errors?.['required']" style="color:red"> Please Select the Drop Location</div>
+   </div>
+  </div>
+
+
+<div class="col-lg-3">
+
+
+    <input class="form-control" name="pickup_location" #branchlocation="ngModel"[(ngModel)]="branch_location" required placeholder="Select the Branch" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);    outline: none;">
+    <div *ngIf="branchlocation.invalid && branchlocation.touched" style="color:red"> 
+    <div *ngIf="branchlocation.errors?.['required']" style="color:red"> Please Select the Branch</div>
+   </div>
+    
+</div>
+
+<div class="col-lg-3">
+
+
+    <input class="form-control" name="pickup_location" #branchid="ngModel"[(ngModel)]="branch_id" required placeholder="Select the Branch ID" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);   outline: none;">
+    <div *ngIf="branchid.invalid && branchid.touched" style="color:red"> 
+    <div *ngIf="branchid.errors?.['required']" style="color:red"> Please Select the Branch ID</div>
+   </div>
+    
+</div>
+
+<div class="col-lg-3">
+
+
+    <input class="form-control" name="pickup_location" #vehiclenumber="ngModel"[(ngModel)]="vehicle_number" required placeholder="Vehicle Number" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);   outline: none;">
+    <div *ngIf="vehiclenumber.invalid && vehiclenumber.touched" style="color:red"> 
+    <div *ngIf="vehiclenumber.errors?.['required']" style="color:red"> Please Enter the Vehicle Number</div>
+   </div>
+    
+</div>
+
+
+
+
+
+</div>
+<br>
+
+<div class="row">
+
+
+
+    <div class="col-lg-3">
+
+
+        <input class="form-control" name="pickup_location" #driverid="ngModel"[(ngModel)]="driver_id" required placeholder="Driver ID" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);   outline: none;">
+        <div *ngIf="driverid.invalid && driverid.touched" style="color:red"> 
+        <div *ngIf="driverid.errors?.['required']" style="color:red"> Please Enter the Driver Name</div>
+       </div>
+        
+    </div>
+    <div class="col-lg-3">
+
+
+        <input class="form-control" name="pickup_location" #drivername="ngModel"[(ngModel)]="driver_name" required placeholder="Enter the Driver Name" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);   outline: none;">
+        <div *ngIf="drivername.invalid && drivername.touched" style="color:red"> 
+        <div *ngIf="drivername.errors?.['required']" style="color:red"> Please Enter the Driver Name</div>
+       </div>
+        
+    </div>
+    <div class="col-lg-3">
+
+
+        <input class="form-control" name="pickup_location" #driverphone="ngModel"[(ngModel)]="driver_phone" required placeholder="Enter the Driver Contact" style="border: none; border-bottom: 2px solid rgb(214, 211, 211);   outline: none;">
+        <div *ngIf="driverphone.invalid && driverphone.touched" style="color:red"> 
+        <div *ngIf="driverphone.errors?.['required']" style="color:red"> Please Enter the Contact Number</div>
+       </div>
+        
+    </div>
+
+
+    <div class="col-lg-3">
+
+
+        <input class="form-control" name="pickup_location" #Startkms="ngModel"[(ngModel)]="Start_kms" required placeholder="Enter the Starting kms.." style="border: none; border-bottom: 2px solid rgb(214, 211, 211);  outline: none;">
+        <div *ngIf="Startkms.invalid && Startkms.touched" style="color:red"> 
+        <div *ngIf="Startkms.errors?.['required']" style="color:red"> Please Enter the Contact Number</div>
+       </div>
+        
+    </div>
+
+
+</div>
+
+<br>
+
+
+<div class="row">
+
+    <div class="col-lg-7">
+
+        <div class="text-end">
+            <button class="btn btn-danger text-end" (click)="submitData()">COMPLETE TRIP SHEET</button>
+          </div>
+    </div>
+</div>
+<br>

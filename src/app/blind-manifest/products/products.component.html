@@ -1,0 +1,184 @@
+<h3>BLIND MANIFEST</h3>
+
+<form>
+	<div class="mb-3 row">
+		<label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+		<div class="col-xs-3 col-sm-auto">
+			<input
+				id="table-complete-search"
+				type="text"
+				class="form-control"
+				name="searchTerm"
+				[(ngModel)]="service.searchTerm"
+			/>
+		</div>
+		<span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col" sortable="Order_Ref_Id" (sort)="onSort($event)">Order ID</th>
+				<th scope="col" sortable="Consignee_name" (sort)="onSort($event)">Consignee Name</th>
+				<th scope="col" sortable="GST" (sort)="onSort($event)">GST</th>
+				<th scope="col" sortable="DeliveryCity" (sort)="onSort($event)">Delivery City</th>
+				<th scope="col" sortable="Weight" (sort)="onSort($event)">Weight</th>
+				<th scope="col" sortable="Contact" (sort)="onSort($event)">Contact</th>
+				<th scope="col" sortable="Pickup_status" (sort)="onSort($event)">PickupStatus</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let country of countries$ | async" >
+				<th scope="row">{{ country.id }}</th>
+				
+					<td><ngb-highlight [result]="country.Order_Ref_Id|number" [term]="service.searchTerm"></ngb-highlight></td>
+					<td><ngb-highlight [result]="country.Consignee_name" [term]="service.searchTerm"></ngb-highlight>
+				</td>
+				<td><ngb-highlight [result]="country.GST" [term]="service.searchTerm"></ngb-highlight></td>
+				<td><ngb-highlight [result]="country.DeliveryCity" [term]="service.searchTerm"></ngb-highlight></td>
+				<td><ngb-highlight [result]="country.Weight | number" [term]="service.searchTerm"></ngb-highlight></td>
+				<td><ngb-highlight [result]="country.Contact | number" [term]="service.searchTerm"></ngb-highlight></td>
+				
+				<td><button *ngIf="country.Pickup_status==='Yet to assign'" class="btn btn-danger text-dark" (click)="Assign_vehicle(assignvechicle,country.Order_Ref_Id,country.Consignee_name,country.Weight)">Assign Vechicle</button>
+					<button *ngIf="country.Pickup_status==='On d way'" class="btn btn-warning text-dark" (click)="View_vehicle(viewdetails,country.Order_Ref_Id,country.Consignee_name,country.Weight)">View details</button>
+					
+				
+				
+				</td>
+			
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="d-flex justify-content-between p-2">	
+		<ngb-pagination [collectionSize]="(service.total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+		</ngb-pagination>
+
+		<select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+			<option [ngValue]="2">2 items per page</option>
+			<option [ngValue]="4">4 items per page</option>
+			<option [ngValue]="6">6 items per page</option>
+		</select>
+	</div>
+</form>
+
+
+
+
+<ng-template #assignvechicle let-c="close" let-d="dismiss">
+	<!-- add your custom CSS class here -->
+	 <div class="modal-content">
+	   <div class="modal-header">
+		 <h4 class="modal-title" id="modal-basic-title"> ENTER PICKUP DETAILS</h4>
+		 <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	   </div>
+	   <div class="modal-body">
+		 <form #vechicledetails="ngForm">
+			<div class="row">
+			<div class="form-group col-lg-4">
+			 <label for="number-input" class="px-2" >ORDER ID:</label>
+			 <input class="form-control" type="number" id="orderref" name="orderref" [(ngModel)]="orderref" [readonly]="true">
+		   </div>
+		   <div class="form-group col-lg-4">
+			 <label for="number-input">CONSIGNEE NAME</label>
+			 <input class="form-control" type="text" id="consigneename" name="consignee_name" [(ngModel)]="consignee_name" [readonly]="true">
+		   </div>
+		   <div class="form-group col-lg-4">
+			<label for="number-input" class="px-2" >CONSIGNMENT WEIGHT</label>
+			<input class="form-control" type="number" id="weight" name="consignment_weight" [(ngModel)]="consignment_weight" [readonly]="true">
+		  </div>
+		</div>
+
+<div class="row">
+
+	<div class="form-group col-lg-4">
+		<label for="number-input">VEHICLE NUMBER</label>
+		<input class="form-control" type="text" id="vehiclenumber" name="Vehicle_Number" [(ngModel)]="Vehicle_Number">
+	  </div>
+
+	  <div class="form-group col-lg-4">
+		<label for="number-input">DRIVER ID</label>
+		<input class="form-control" type="number" id="driverName" name="Driver_Id" [(ngModel)]="Driver_Id">
+	  </div>
+	  <div class="form-group col-lg-4">
+		<label for="number-input">DRIVER ID</label>
+		<input class="form-control" type="text" id="drivername" name="Driver_Name" [(ngModel)]="Driver_Name">
+	  </div>
+
+
+
+</div>
+
+
+
+		 </form>
+	   </div>
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-outline-dark" (click)="assgin_vehicle(vechicledetails)">Submit</button>
+	   </div>
+	 </div>
+   
+ </ng-template>
+
+
+
+
+
+
+ <ng-template #viewdetails let-c="close" let-d="dismiss">
+	<!-- add your custom CSS class here -->
+	 <div class="modal-content">
+	   <div class="modal-header">
+		 <h4 class="modal-title" id="modal-basic-title"> ENTER PICKUP DETAILS</h4>
+		 <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	   </div>
+	   <div class="modal-body">
+		 <form #vechicledetails="ngForm">
+			<div class="row">
+			<div class="form-group col-lg-4">
+			 <label for="number-input" class="px-2" >ORDER ID:</label>
+			 <input class="form-control" type="number" id="orderref" name="orderref" [(ngModel)]="orderref" [readonly]="true">
+		   </div>
+		   <div class="form-group col-lg-4">
+			 <label for="number-input">CONSIGNEE NAME</label>
+			 <input class="form-control" type="text" id="consigneename" name="consignee_name" [(ngModel)]="consignee_name" [readonly]="true">
+		   </div>
+		   <div class="form-group col-lg-4">
+			<label for="number-input" class="px-2" >CONSIGNMENT WEIGHT</label>
+			<input class="form-control" type="number" id="weight" name="consignment_weight" [(ngModel)]="consignment_weight" [readonly]="true">
+		  </div>
+		</div>
+
+<div class="row">
+
+	<div class="form-group col-lg-4">
+		<label for="number-input">VEHICLE NUMBER</label>
+		<input class="form-control" type="text" id="vehiclenumber" name="Vehicle_Number" [(ngModel)]="Vehicle_Number" [readonly]=
+		>
+	  </div>
+
+	  <div class="form-group col-lg-4">
+		<label for="number-input">DRIVER ID</label>
+		<input class="form-control" type="number" id="driverName" name="Driver_Id" [(ngModel)]="Driver_Id" [readonly]=Readonly_Flag>
+	  </div>
+	  <div class="form-group col-lg-4">
+		<label for="number-input">DRIVER ID</label>
+		<input class="form-control" type="text" id="drivername" name="Driver_Name" [(ngModel)]="Driver_Name" [readonly]=Readonly_Flag>
+	  </div>
+
+
+
+</div>
+
+
+
+		 </form>
+	   </div>
+	   <div class="modal-footer">
+		<button type="button" class="btn btn-outline-warning text-dark" *ngIf=Readonly_Flag (click)="Modify_vehicle(vechicledetails)">Modify</button>
+		 <button type="button" class="btn btn-outline-dark"  *ngIf=!Readonly_Flag (click)="Update_vehicle(vechicledetails)">Update</button>
+	   </div>
+	 </div>
+   
+ </ng-template>

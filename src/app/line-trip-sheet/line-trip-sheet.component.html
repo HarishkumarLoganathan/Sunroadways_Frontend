@@ -1,0 +1,51 @@
+LINE TRIP SHEET
+
+<div style="overflow-x: auto;">
+<table class="table">
+    <thead>
+      <td></td>
+      <td><b>LR NUMBER</b> </td>
+      <td><b>CONSIGNOR NAME</b></td>
+      <td><b>CONSIGNEE NAME</b></td>
+      <td><b>DELIVERY PLACE</b></td>
+      <td><b>DELIVERY PINCODE</b></td>
+      <td><b>TOTAL BAGS</b></td>
+      <td><b>TOTAL WEIGHT</b></td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableRows; let i = index">
+
+
+        <td *ngIf="i!=0"><button (click)="removeRow(i)" style="border: none;"><i class="fas fa-times" style="color:red; background: #131212; border: none; font-size: 20px; border-radius: 50%; padding: 5px;"></i></button></td>
+        <td *ngIf="i==0"></td>
+        <td><input type="text" [(ngModel)]="row.Lr_Number"></td>
+        <td><input type="text" [(ngModel)]="row.Consignor_Name"></td>
+        <td><input type="text" [(ngModel)]="row.Consignee_Name"></td>
+        <td><input type="text" [(ngModel)]="row.Delivery_Place"></td>
+        <td><input type="text" [(ngModel)]="row.Delivery_Pincode"></td>
+        <td><input type="text" [(ngModel)]="row.Total_Bags"></td>
+        <td><input type="text" [(ngModel)]="row.Total_Weight"></td>
+        <!-- Other columns -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+ <br>
+
+ <div class="row">
+
+  <div class="col-lg-6">
+  <div class="text-start ">
+    <button class="btn btn-danger" (click)="addRow()">ADD CONSIGNMENT</button>
+  </div>
+  </div>
+   
+ 
+  <div class="col-lg-6">
+  <div class="text-end">
+    <button class="btn btn-success text-end" (click)="submitData()">COMPLETE TRIP SHEET</button>
+  </div>
+</div>
+</div>
+
+

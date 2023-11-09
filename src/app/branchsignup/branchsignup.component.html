@@ -1,0 +1,55 @@
+<form #loginForm="ngForm" (ngSubmit)="branch_login(loginForm)">
+    <div class="form-group">
+        <label for="branchName"><b>Branch Name</b></label>
+        <input type="text" class="form-control" #branchName="ngModel" name="branch_name" [(ngModel)]="branch_name" placeholder="Branch Name" required>
+        <div *ngIf="branchName.invalid && branchName.touched" style="color: red">
+            <div *ngIf="branchName.errors?.['required']">Please enter the Branch Name</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="branchAddress"><b>Branch Address</b></label>
+        <input type="text" class="form-control" #branchAddress="ngModel" name="branch_address" [(ngModel)]="branch_address" placeholder="Branch Address" required>
+        <div *ngIf="branchAddress.invalid && branchAddress.touched" style="color: red">
+            <div *ngIf="branchAddress.errors?.['required']">Please enter the Branch Address</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="branchCity"><b>Branch City</b></label>
+        <input type="text" class="form-control" #branchCity="ngModel" name="branch_city" [(ngModel)]="branch_city" placeholder="Branch City" required>
+        <div *ngIf="branchCity.invalid && branchCity.touched" style="color: red">
+            <div *ngIf="branchCity.errors?.['required']">Please enter the Branch City</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="branchState"><b>Branch State</b></label>
+        <input type="text" class="form-control" #branchState="ngModel" name="branch_state" [(ngModel)]="branch_state" placeholder="Branch State" required>
+        <div *ngIf="branchState.invalid && branchState.touched" style="color: red">
+            <div *ngIf="branchState.errors?.['required']">Please enter the Branch State</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="branchEmail"><b>Branch Email</b></label>
+        <input type="email" class="form-control" #branchEmail="ngModel" name="branch_email" [(ngModel)]="branch_email" placeholder="Branch Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <div *ngIf="branchEmail.invalid && branchEmail.touched" style="color: red">
+            <div *ngIf="branchEmail.errors?.['required']">Please enter the Branch Email</div>
+            <div *ngIf="branchEmail.errors?.['pattern']">Invalid email pattern</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="branchPassword"><b>Branch Password</b></label>
+        <input type="password" class="form-control" #branchPassword="ngModel" name="branch_password" [(ngModel)]="branch_password" placeholder="Branch Password with min 8 characters with at least 1 uppercase and 1 lowercase and 1 digit and a special character" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$">
+        <div *ngIf="branchPassword.invalid && branchPassword.touched" style="color: red">
+            <div *ngIf="branchPassword.errors?.['required']">Please enter the Branch Password</div>
+            <div *ngIf="branchPassword.errors?.['pattern']">Invalid password pattern</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="branchId"><b>Branch ID</b></label>
+        <input type="text" class="form-control" #branchId="ngModel" name="branch_id" [(ngModel)]="branch_id" placeholder="Branch ID" required>
+        <div *ngIf="branchId.invalid && branchId.touched" style="color: red">
+            <div *ngIf="branchId.errors?.['required']">Please enter the Branch ID</div>
+        </div>
+    </div>
+
+    <button class="btn btn-dark" type="submit" [disabled]="!loginForm.valid">Login</button>
+</form>
